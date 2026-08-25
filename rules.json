@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        { "header": "X-Frame-Options", "operation": "remove" },
+        { "header": "Content-Security-Policy", "operation": "remove" }
+      ]
+    },
+    "condition": {
+      "urlFilter": "||chzzk.naver.com",
+      "resourceTypes": ["sub_frame", "xmlhttprequest", "main_frame"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "requestHeaders": [
+        { "header": "Referer", "operation": "set", "value": "https://chzzk.naver.com/" },
+        { "header": "Origin", "operation": "set", "value": "https://chzzk.naver.com" }
+      ]
+    },
+    "condition": {
+      "urlFilter": "||naver.com",
+      "resourceTypes": ["xmlhttprequest", "media", "sub_frame"]
+    }
+  }
+]

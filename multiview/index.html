@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>치지직 멀티뷰어</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="hls.min.js"></script>
+</head>
+<body>
+  <div class="app-layout">
+    <!-- 좌측: 비디오 화면 영역 -->
+    <main id="player-container" class="player-container">
+      <div id="player-grid" class="player-grid"></div>
+      <div id="snap-guide-x" class="snap-guide horizontal hidden"></div>
+      <div id="snap-guide-y" class="snap-guide vertical hidden"></div>
+      
+      <!-- 사이드바 열기/닫기 토글 버튼 (> 접기 / < 펼치기) -->
+      <button id="btn-toggle-sidebar" class="btn-toggle-sidebar" title="사이드바 숨기기/펼치기" type="button">
+        ❯
+      </button>
+    </main>
+
+    <!-- 우측: 사이드바 영역 -->
+    <aside id="sidebar" class="sidebar">
+      <nav class="sidebar-tabs">
+        <button id="tab-btn-chat" class="tab-btn active" type="button">채팅</button>
+        <button id="tab-btn-settings" class="tab-btn" type="button">멀티뷰 설정</button>
+      </nav>
+
+      <!-- 채팅 패널 -->
+      <section id="panel-chat" class="panel-content active">
+        <div class="panel-header">
+          <span id="active-channel-title">선택된 방송 없음</span>
+        </div>
+        <div id="chat-frame-container" class="chat-frame-container">
+          <div class="empty-notice">화면을 클릭하면 해당 방송의 채팅이 표시됩니다.</div>
+        </div>
+      </section>
+
+      <!-- 설정 패널 -->
+      <section id="panel-settings" class="panel-content">
+        <!-- 방송 추가 섹션 -->
+        <div class="settings-group">
+          <h3>방송 추가</h3>
+          <!-- 수동 URL / ID 입력 -->
+          <div class="input-row">
+            <input type="text" id="input-channel-id" placeholder="채널 ID 또는 방송 URL 직접 입력">
+            <button id="btn-add-stream" class="btn-primary" type="button">추가</button>
+          </div>
+
+          <!-- 접이식 최근 시청한 채널 목록 -->
+          <details class="foldable-section" id="details-recent-channels" open>
+            <summary>🕒 최근 시청한 채널</summary>
+            
+            <!-- 상단 접기 버튼 (더보기 활성화 시 노출) -->
+            <div id="recent-fold-top" class="fold-control-bar hidden">
+              <button id="btn-fold-recent-top" class="btn-text-action" type="button">▲ 5개만 보기 (접기)</button>
+            </div>
+
+            <!-- 최근 채널 리스트 -->
+            <div id="recent-status-msg" class="sub-status-msg">저장된 채널이 없습니다.</div>
+            <ul id="recent-channel-list" class="recent-channel-list"></ul>
+
+            <!-- 하단 5개 더보기 / 접기 컨트롤 바 -->
+            <div id="recent-fold-bottom" class="fold-control-bar hidden">
+              <button id="btn-more-recent" class="btn-text-action" type="button">▼ 5개 더보기</button>
+              <button id="btn-fold-recent-bottom" class="btn-text-action hidden" type="button">▲ 5개만 보기 (접기)</button>
+            </div>
+          </details>
+        </div>
+
+        <div class="settings-group">
+          <h3>화면 크기 조절</h3>
+          <label class="toggle-label">
+            <input type="checkbox" id="toggle-edit-mode">
+            <span>크기 조절/이동 모드 활성화</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="toggle-magnet" checked>
+            <span>마그넷(모서리 & 1/n 분할 스냅)</span>
+          </label>
+        </div>
+
+        <div class="settings-group">
+          <h3>기본 프리셋</h3>
+          <div class="preset-grid">
+            <button class="btn-preset" data-preset="1x1" type="button">1x1</button>
+            <button class="btn-preset" data-preset="2x1" type="button">2x1</button>
+            <button class="btn-preset" data-preset="1x2" type="button">1x2</button>
+            <button class="btn-preset" data-preset="2x2" type="button">2x2</button>
+            <button class="btn-preset" data-preset="1pn" type="button">1+n</button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <h3>커스텀 프리셋</h3>
+          <div class="input-row">
+            <input type="text" id="input-preset-name" placeholder="프리셋 이름">
+            <button id="btn-save-custom-preset" class="btn-secondary" type="button">현재 화면 저장</button>
+          </div>
+          <ul id="custom-preset-list" class="custom-preset-list"></ul>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

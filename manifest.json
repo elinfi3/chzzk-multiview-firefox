@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "치지직 멀티뷰어",
+  "version": "1.0.0",
+  "description": "치지직(CHZZK) 방송을 다분할 독립 탭에서 시청하는 확장 프로그램",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "chzzk-multiview@custom-extension",
+      "strict_min_version": "109.0"
+    }
+  },
+  "icons": {
+    "48": "icons/icon.png",
+    "96": "icons/icon.png",
+    "128": "icons/icon.png"
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "declarativeNetRequest",
+    "cookies"
+  ],
+  "host_permissions": [
+    "*://*.chzzk.naver.com/*",
+    "*://*.naver.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "action": {
+    "default_title": "치지직 멀티뷰 열기",
+    "default_icon": "icons/icon.png"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "chzzk_embed_rules",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}
